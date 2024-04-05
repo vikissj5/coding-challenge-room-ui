@@ -9,11 +9,32 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/building/:id', (req, res) => {
-    const id = req.params.id;
+const setAcStatus = async (data) => {
+    console.log(data.building.rooms);
+    data?.building?.rooms?.forEach((item) => {
+        if (item.temp > data?.building?.defaultTemp) {
+            item.acStatus = true;
+        }
+        else {
+            item.acStatus = false;
+        }
+    })
+    appData = data;
+};
 
-    const resData = appData.filter(item => item.id == id);
-    res.send(resData);
+// app.get('/building/', (req, res) => {
+//     const id = req.params.id;
+//     const resData = ;
+//     res.send(resData);
+// });
+
+const setDefaultTemp = async (temp) => {
+    data.building.defaultTemp = Number(temp);
+}
+
+app.get('/building', async (req, res) => {
+    await setAcStatus(data);
+    res.send(appData);
 });
 
 // request to add a new room
@@ -23,7 +44,11 @@ app.post('/addroom', (req, res) => {
     res.send(appData);
 })
 
-
+app.post('/setTemp', async (req, res) => {
+    await setDefaultTemp(req.body.temp);
+    await setAcStatus(data);
+    res.send(appData);
+})
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });
