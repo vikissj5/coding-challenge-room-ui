@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const setAcStatus = async (data) => {
-    console.log(data.building.rooms);
+
     data?.building?.rooms?.forEach((item) => {
         if (item.temp > data?.building?.defaultTemp) {
             item.acStatus = true;
@@ -38,11 +38,13 @@ app.get('/building', async (req, res) => {
 });
 
 // request to add a new room
-app.post('/addroom', (req, res) => {
+app.post('/addroom', async (req, res) => {
     const newData = req.body;
-    appData = [...data, newData];
+    appData.building.rooms.push(newData); // Push newData into the rooms array
+    await setAcStatus(appData);
     res.send(appData);
-})
+});
+
 
 app.post('/setTemp', async (req, res) => {
     await setDefaultTemp(req.body.temp);

@@ -11,10 +11,23 @@
   box-sizing: border-box;
 }
 
-body{
+body {
   max-width: 100vw;
   overflow-x: hidden;
+  background: linear-gradient(to right, rgb(189, 244, 244), rgb(246, 232, 232)); 
+  background-size: 200% 100%; 
+  animation: gradient-transition 5s linear infinite alternate; 
 }
+
+@keyframes gradient-transition {
+  0% {
+      background-position: 0 0; 
+  }
+  100% {
+      background-position: 100% 0; 
+  }
+}
+
 
 a{
   color: inherit;
