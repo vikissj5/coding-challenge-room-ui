@@ -29,7 +29,7 @@ export async function addRoom(roomName) {
     };
 
     try {
-        const response = await fetch('http://localhost:3001/addroom', {
+        const response = await fetch('http://localhost:3001/building/addroom', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ export async function setTemprature(temp) {
     };
 
     try {
-        const response = await fetch('http://localhost:3001/setTemp', {
+        const response = await fetch('http://localhost:3001/building/setTemp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
