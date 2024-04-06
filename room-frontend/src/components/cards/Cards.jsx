@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { getAvatar } from "@/app/api";
 
 
-const Cards = ({ name, id, acStatus }) => {
+const Cards = ({ name, id, acStatus, temp }) => {
 
     const [avatars, setAvatars] = useState(null);
 
@@ -21,7 +21,6 @@ const Cards = ({ name, id, acStatus }) => {
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
-            {/* Render your card content here using props */}
             <Box style={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -33,11 +32,12 @@ const Cards = ({ name, id, acStatus }) => {
 
 
                 <Text size='lg' style={{
-                    marginTop: "16px",
+                    marginTop: "10px",
                     fontWeight: '600'
-                }}>Name of Occupant</Text>
-                <Box mb={'5'}>Room Temprature : 10</Box>
-                <Box mb={'5'}><Badge color="red">Heating</Badge></Box>
+                }}> {name}</Text>
+                <Box mb={'5'}>Room No : {id}</Box>
+                <Box mb={'5'}>Room Temprature : {temp}</Box>
+                <Box mb={'5'}>status : <Badge color={acStatus ? "blue" : "red"}>{acStatus ? "Cooling" : "Heating"}</Badge></Box>
             </Box>
         </Card >
     );

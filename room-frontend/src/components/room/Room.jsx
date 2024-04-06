@@ -1,9 +1,9 @@
 'use client'
 import { Grid, GridCol } from "@mantine/core";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Cards from "../cards/Cards";
+import AddRoomCards from "../cards/AddRoomCard";
 const Room = (rooms) => {
-    console.log(rooms);
     const [cards, setCards] = useState([]);
     const [screenSize, setScreenSize] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -12,9 +12,17 @@ const Room = (rooms) => {
         return 0; // Default value if window is not available
     });
 
-    useEffect(() => {
+    const memoizedCards = useMemo(() => {
         console.log(rooms);
-        setCards(rooms.rooms);
+        return rooms.rooms;
+    }, []);
+
+    useEffect(() => {
+        setCards(memoizedCards);
+    }, [memoizedCards]);
+
+
+    useEffect(() => {
 
         const handleResize = () => {
             setScreenSize(window.innerWidth); // Update screen size on resize
@@ -33,9 +41,12 @@ const Room = (rooms) => {
         <Grid overflow="hidden" style={{ margin: '20px' }}>
             {cards && cards.map((item) => (
                 <GridCol span={screenSize <= 768 ? 12 : screenSize <= 1024 ? 6 : 3} key={item.id}>
-                    <Cards name={item.name} />
+                    <Cards name={item.name} acStatus={item.acStatus} temp={item.temp} id={item.id} />
                 </GridCol>
             ))}
+            <GridCol span={screenSize <= 768 ? 12 : screenSize <= 1024 ? 6 : 3} >
+                <AddRoomCards />
+            </GridCol>
         </Grid>
     );
 }
