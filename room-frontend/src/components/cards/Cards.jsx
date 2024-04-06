@@ -3,6 +3,7 @@
 import { Box, Card, Text, Avatar, Badge } from "@mantine/core";
 import React, { useEffect, useState } from 'react';
 import { getAvatar } from "@/app/api";
+import { IconTemperatureCelsius } from '@tabler/icons-react';
 
 
 const Cards = ({ name, id, acStatus, temp }) => {
@@ -36,7 +37,9 @@ const Cards = ({ name, id, acStatus, temp }) => {
                     fontWeight: '600'
                 }}> {name}</Text>
                 <Box mb={'5'}>Room No : {id}</Box>
-                <Box mb={'5'}>Room Temprature : {temp}</Box>
+                <Box mb={'5'}>Room Temprature : {temp}<IconTemperatureCelsius width={20} height={20} style={{
+                    paddingTop: '5px'
+                }} /></Box>
                 <Box mb={'5'}>status : <Badge color={acStatus ? "blue" : "red"}>{acStatus ? "Cooling" : "Heating"}</Badge></Box>
             </Box>
         </Card >

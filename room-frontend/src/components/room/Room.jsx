@@ -7,9 +7,9 @@ const Room = (rooms) => {
     const [cards, setCards] = useState([]);
     const [screenSize, setScreenSize] = useState(() => {
         if (typeof window !== 'undefined') {
-            return window.innerWidth; // Initialize with the initial screen width
+            return window.innerWidth;
         }
-        return 0; // Default value if window is not available
+        return 0;
     });
 
     const memoizedCards = useMemo(() => {
@@ -25,14 +25,14 @@ const Room = (rooms) => {
     useEffect(() => {
 
         const handleResize = () => {
-            setScreenSize(window.innerWidth); // Update screen size on resize
+            setScreenSize(window.innerWidth);
         };
 
         if (typeof window !== 'undefined') {
-            window.addEventListener("resize", handleResize); // Add event listener if running in the browser
+            window.addEventListener("resize", handleResize);
 
             return () => {
-                window.removeEventListener("resize", handleResize); // Cleanup 
+                window.removeEventListener("resize", handleResize);
             };
         }
     }, []);
